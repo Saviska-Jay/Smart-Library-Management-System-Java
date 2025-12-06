@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,13 +79,13 @@ public class K2559495_Book {
         this.edition = edition;
     }
 
-public void addReview(String review) {
-    this.reviews.add(review);
-}
+    public void addReview(String review) {
+        this.reviews.add(review);
+    }
 
-public void addTag(String tag) {
-    this.tags.add(tag);
-}
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
 
     //Display book details
     public void displayBookInfo() {
