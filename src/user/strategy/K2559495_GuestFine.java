@@ -1,3 +1,5 @@
+package user.strategy;
+
 public class K2559495_GuestFine implements K2559495_FineStrategy
 {
     @Override

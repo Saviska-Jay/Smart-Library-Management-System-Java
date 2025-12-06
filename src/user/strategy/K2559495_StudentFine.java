@@ -1,3 +1,5 @@
+package user.strategy;
+
 public class K2559495_StudentFine implements K2559495_FineStrategy
 {
     @Override
