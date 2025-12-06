@@ -21,8 +21,10 @@ public abstract class K2559495_User {
         this.fineStrategy = fineStrategy;
     }
 
-    //Abstract method for borrowing limit
+    //Abstract method for borrowing limit and duration
     public abstract int getBorrowingLimit();
+
+    public abstract int getBorrowDuration();
 
     public double calculateFine(int overdueDays) {
         return fineStrategy.calculateFine(overdueDays);
@@ -32,7 +34,7 @@ public abstract class K2559495_User {
         borrowedBooksHistory.add(bookId);
     }
 
-    public List<String> getBorrowedBooksHistory() {
+    public List<String> getBorrowedBooks() {
         return borrowedBooksHistory;
     }
 

@@ -1,4 +1,5 @@
 package user.abstraction;
+
 import user.strategy.K2559495_GuestFine;
 
 public class K2559495_Guest extends K2559495_User {
@@ -10,6 +11,11 @@ public class K2559495_Guest extends K2559495_User {
     @Override
     public int getBorrowingLimit() {
         return 2; // Guests can borrow up to 2 books
+    }
+
+    @Override
+    public int getBorrowDuration() {
+        return 7; // Guests can keep books for 7 days
     }
 
     @Override

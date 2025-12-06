@@ -1,3 +1,5 @@
+package book.state;
+
 public class K2559495_AvailableState implements K2559495_BookState{
     @Override
     public void borrow(K2559495_BookContext context) {

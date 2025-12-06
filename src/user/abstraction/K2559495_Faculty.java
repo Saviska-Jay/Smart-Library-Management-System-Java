@@ -14,6 +14,11 @@ public class K2559495_Faculty extends K2559495_User {
     }
 
     @Override
+    public int getBorrowDuration() {
+        return 30; // Faculty can keep books for 30 days
+    }
+
+    @Override
     public void displayUserInfo() {
         System.out.println("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         System.out.println("::::::::::::::::::::::: Faculty Member ::::::::::::::::::::::::");
