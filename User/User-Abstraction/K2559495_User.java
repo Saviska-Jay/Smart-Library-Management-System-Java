@@ -1,6 +1,3 @@
-package user;
-
-import user.strategy.K2559495_FineStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
