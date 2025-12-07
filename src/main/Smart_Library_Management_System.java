@@ -208,6 +208,58 @@ public class Smart_Library_Management_System {
         }
     }
 
+    // ==================== BOOK ENHANCEMENT (EDITION, TAGS, REVIEWS) ====================
+    public boolean addEditionToBook(String bookId, String edition) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return false;
+            }
+
+            context.getBook().updateEdition(edition);
+            System.out.println("[Edition Added] Book ID: " + bookId + " - Edition: " + edition);
+            return true;
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to add edition: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean addTagToBook(String bookId, String tag) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return false;
+            }
+
+            context.getBook().addTag(tag);
+            System.out.println("[Tag Added] Book ID: " + bookId + " - Tag: " + tag);
+            return true;
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to add tag: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean addReviewToBook(String bookId, String review) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return false;
+            }
+
+            context.getBook().addReview(review);
+            System.out.println("[Review Added] Book ID: " + bookId);
+            return true;
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to add review: " + e.getMessage());
+            return false;
+        }
+    }
+
     // ==================== Helper Methods ====================
     public List<K2559495_BookContext> getBookContexts() {
         return bookContexts;

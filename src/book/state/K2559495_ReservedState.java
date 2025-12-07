@@ -15,8 +15,10 @@ public class K2559495_ReservedState implements K2559495_BookState {
         // Notify observers that the reserved book is now available
         if (context.getNotificationService() != null) {
             context.getNotificationService().notifyObservers(
-                "The Book '" + context.getBook().getTitle() + "' was reserved and has now been returned. It is available."
+                    "The Book '" + context.getBook().getTitle() + "' was reserved and has now been returned. It is available."
             );
+            // Clear observers after notification - reservation fulfilled
+            context.setNotificationService(null);
         }
     }
 

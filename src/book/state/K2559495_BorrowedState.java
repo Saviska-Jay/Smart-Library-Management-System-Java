@@ -15,8 +15,10 @@ public class K2559495_BorrowedState implements K2559495_BookState {
         // Notify observers that the book is now available
         if (context.getNotificationService() != null) {
             context.getNotificationService().notifyObservers(
-                "The Book '" + context.getBook().getTitle() + "' has been returned and is now available."
+                    "The Book '" + context.getBook().getTitle() + "' has been returned and is now available."
             );
+            // Clear observers after notification - reservation fulfilled
+            context.setNotificationService(null);
         }
     }
 

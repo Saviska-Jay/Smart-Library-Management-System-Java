@@ -59,14 +59,27 @@ public class K2559495_BookContext {
         }
     }
 
-    // Return logic with fine calculation
+// Return logic with fine calculation
     public void returnBook(K2559495_User user) {
+        // Check if the user actually borrowed this book
+        if (!user.getBorrowedBooks().contains(book.getBookId())) {
+            System.out.println("[Error] " + user.getName() + " has not borrowed this book.");
+            return;
+        }
+
+        // Check if the book is actually in a borrowed or reserved state
+        if (!(currentState instanceof K2559495_BorrowedState)
+                && !(currentState instanceof K2559495_ReservedState)) {
+            System.out.println("[Error] This book is not currently borrowed.");
+            return;
+        }
+
         currentState.returnBook(this);
 
         if (dueDate != null) {
             long overdueDays = ChronoUnit.DAYS.between(dueDate, LocalDate.now());
             if (overdueDays > 0) {
-                double fine = user.calculateFine((int) overdueDays); // <-- use User API
+                double fine = user.calculateFine((int) overdueDays);
                 System.out.println("Fine for " + user.getName() + ": LKR " + fine);
             }
         }
@@ -93,7 +106,6 @@ public class K2559495_BookContext {
     public String getBookStatus() {
         return currentState.getBookStatus();
     }
-
 
     //For testing purposes
     public void setDueDate(LocalDate dueDate) {
