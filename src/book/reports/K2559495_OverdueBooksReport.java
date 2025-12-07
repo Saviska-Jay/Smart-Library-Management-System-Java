@@ -10,7 +10,7 @@ public class K2559495_OverdueBooksReport {
     public static void generate(List<K2559495_BookContext> bookContexts) {
         System.out.println("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         System.out.println("::::::::::::::: Overdue Books Report ::::::::::::::::::::::::::");
-
+        System.out.println("---------------------------------------------------------------");
         for (K2559495_BookContext context : bookContexts) {
             LocalDate dueDate = context.getDueDate();
             if (dueDate != null && LocalDate.now().isAfter(dueDate)) {
