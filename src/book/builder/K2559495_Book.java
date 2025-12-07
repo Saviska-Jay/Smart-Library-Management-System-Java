@@ -2,8 +2,9 @@ package book.builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import book.decorator.K2559495_BookFeature;
 
-public class K2559495_Book {
+public class K2559495_Book implements K2559495_BookFeature {
 
     private final String bookId;
     private String title;
@@ -25,6 +26,11 @@ public class K2559495_Book {
         this.reviews = builder.reviews;
         this.tags = builder.tags;
         this.edition = builder.edition;
+    }
+
+    @Override
+    public String getDescription() {
+        return title + " by " + author + " (" + category + ")";
     }
 
     // Getters for book fields

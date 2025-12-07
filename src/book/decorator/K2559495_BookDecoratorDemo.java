@@ -1,3 +1,5 @@
+package book.decorator;
+
 public class K2559495_BookDecoratorDemo {
     public static void main(String[] args) {
         K2559495_BookFeature book = () -> "The Great Gatsby by F. Scott Fitzgerald";
