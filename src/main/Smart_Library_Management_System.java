@@ -208,8 +208,8 @@ public class Smart_Library_Management_System {
         }
     }
 
-    // ==================== BOOK ENHANCEMENT (EDITION, TAGS, REVIEWS) ====================
-    public boolean addEditionToBook(String bookId, String edition) {
+    // ==================== BOOK DECORATOR METHODS ====================
+    public boolean addFeatureToBook(String bookId, String featureType) {
         try {
             K2559495_BookContext context = findBookContextById(bookId);
             if (context == null) {
@@ -217,15 +217,85 @@ public class Smart_Library_Management_System {
                 return false;
             }
 
-            context.getBook().updateEdition(edition);
-            System.out.println("[Edition Added] Book ID: " + bookId + " - Edition: " + edition);
+            K2559495_Book book = context.getBook();
+            
+            switch (featureType.toLowerCase()) {
+                case "featured":
+                    book.setFeatured(true);
+                    System.out.println("[Feature Added] Featured - " + book.getDescription() + " #Featured");
+                    break;
+                case "recommended":
+                    book.setRecommended(true);
+                    System.out.println("[Feature Added] Recommended - " + book.getDescription() + " #Recommended");
+                    break;
+                case "special edition":
+                case "specialedition":
+                    book.setSpecialEdition(true);
+                    System.out.println("[Feature Added] Special Edition - " + book.getDescription() + " #SpecialEdition");
+                    break;
+                default:
+                    System.out.println("[Error] Invalid feature type: " + featureType);
+                    return false;
+            }
+            
             return true;
         } catch (Exception e) {
-            System.out.println("[Error] Failed to add edition: " + e.getMessage());
+            System.out.println("[Error] Failed to add feature: " + e.getMessage());
             return false;
         }
     }
+    
+    public boolean removeFeatureFromBook(String bookId, String featureType) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return false;
+            }
 
+            K2559495_Book book = context.getBook();
+            
+            switch (featureType.toLowerCase()) {
+                case "featured":
+                    book.setFeatured(false);
+                    System.out.println("[Feature Removed] Featured from Book ID: " + bookId);
+                    break;
+                case "recommended":
+                    book.setRecommended(false);
+                    System.out.println("[Feature Removed] Recommended from Book ID: " + bookId);
+                    break;
+                case "special edition":
+                case "specialedition":
+                    book.setSpecialEdition(false);
+                    System.out.println("[Feature Removed] Special Edition from Book ID: " + bookId);
+                    break;
+                default:
+                    System.out.println("[Error] Invalid feature type: " + featureType);
+                    return false;
+            }
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to remove feature: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public void viewBookById(String bookId) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return;
+            }
+            
+            context.getBook().displayBookInfo();
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to view book: " + e.getMessage());
+        }
+    }
+
+    // ==================== BOOK ENHANCEMENT (TAGS, REVIEWS, EDITION) ====================
     public boolean addTagToBook(String bookId, String tag) {
         try {
             K2559495_BookContext context = findBookContextById(bookId);
@@ -256,6 +326,23 @@ public class Smart_Library_Management_System {
             return true;
         } catch (Exception e) {
             System.out.println("[Error] Failed to add review: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean setEditionForBook(String bookId, String edition) {
+        try {
+            K2559495_BookContext context = findBookContextById(bookId);
+            if (context == null) {
+                System.out.println("[Error] Book ID not found: " + bookId);
+                return false;
+            }
+
+            context.getBook().updateEdition(edition);
+            System.out.println("[Edition Set] Book ID: " + bookId + " - Edition: " + edition);
+            return true;
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to set edition: " + e.getMessage());
             return false;
         }
     }

@@ -67,7 +67,8 @@ public class SLMS_Main {
                 + " |                          Book Management Menu                              | \n"
                 + " |                                                                            | \n"
                 + " |          1. Add Book                     3. Update Book                    | \n"
-                + " |          2. Remove Book                  4. Back to Main Menu              | \n"
+                + " |          2. Remove Book                  4. View Book by Id                | \n"
+                + " |          5. Back to Main Menu                                              | \n"
                 + " |                                                                            | \n"
                 + " +============================================================================+\n"
                 + " |                   K2559495 - Saviska Jayawickrama - 2025                   | \n"
@@ -123,8 +124,9 @@ public class SLMS_Main {
                 + " |                                                                            | \n"
                 + " |                       Book Enhancement Menu                                | \n"
                 + " |                                                                            | \n"
-                + " |          1. Add Edition to Book          3. Add Review to Book             | \n"
-                + " |          2. Add Tag to Book              4. Back to Main Menu              | \n"
+                + " |          1. Add Feature to Book          4. Add Review to Book             | \n"
+                + " |          2. Set Edition for Book         5. Back to Main Menu              | \n"
+                + " |          3. Add Tag to Book                                                | \n"
                 + " |                                                                            | \n"
                 + " +============================================================================+\n"
                 + " |                   K2559495 - Saviska Jayawickrama - 2025                   | \n"
@@ -294,15 +296,15 @@ public class SLMS_Main {
                 // ==================== BOOK MANAGEMENT ====================
                 case 2:
                     int bookChoice = 0;
-                    while (bookChoice != 4) {
+                    while (bookChoice != 5) {
                         printBookManagementMenu();
-                        System.out.print("Enter your choice (1-4): ");
+                        System.out.print("Enter your choice (1-5): ");
 
                         try {
                             bookChoice = scanner.nextInt();
                             scanner.nextLine();
                         } catch (Exception e) {
-                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 4.");
+                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 5.");
                             scanner.nextLine();
                             continue;
                         }
@@ -379,7 +381,18 @@ public class SLMS_Main {
                                 }
                                 break;
 
-                            case 4: // Back to Main Menu
+                            case 4: // View Book by ID
+                                System.out.println("\n+============================================+");
+                                System.out.println("|            View Book by ID                 |");
+                                System.out.println("+============================================+\n");
+
+                                System.out.print(" Enter Book ID: ");
+                                String viewBookId = scanner.nextLine();
+
+                                slms.viewBookById(viewBookId);
+                                break;
+
+                            case 5: // Back to Main Menu
                                 System.out.println("Returning to Main Menu...");
                                 break;
 
@@ -497,26 +510,67 @@ public class SLMS_Main {
                     System.out.println("\n+============================================+\n");
                     break;
 
-                // ==================== ENHANCE BOOK (EDITION, TAGS, REVIEWS) ====================
+                // ==================== ENHANCE BOOK (DECORATORS, EDITION, TAGS, REVIEWS) ====================
                 case 7:
                     int enhanceChoice = 0;
-                    while (enhanceChoice != 4) {
+                    while (enhanceChoice != 5) {
                         printBookEnhancementMenu();
-                        System.out.print("Enter your choice (1-4): ");
+                        System.out.print("Enter your choice (1-5): ");
 
                         try {
                             enhanceChoice = scanner.nextInt();
                             scanner.nextLine();
                         } catch (Exception e) {
-                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 4.");
+                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 5.");
                             scanner.nextLine();
                             continue;
                         }
 
                         switch (enhanceChoice) {
-                            case 1: // Add Edition to Book
+                            case 1: // Add Feature to Book
                                 System.out.println("\n+============================================+");
-                                System.out.println("|          Add Edition to Book               |");
+                                System.out.println("|        Add Feature to Book                 |");
+                                System.out.println("+============================================+\n");
+
+                                System.out.print(" Enter Book ID: ");
+                                String featureBookId = scanner.nextLine();
+                                
+                                System.out.println("\n Available Features:");
+                                System.out.println(" 1. Featured");
+                                System.out.println(" 2. Recommended");
+                                System.out.println(" 3. Special Edition");
+                                System.out.print("\n Select feature to add (1-3): ");
+                                
+                                int featureType = scanner.nextInt();
+                                scanner.nextLine();
+                                
+                                String feature = "";
+                                switch (featureType) {
+                                    case 1:
+                                        feature = "featured";
+                                        break;
+                                    case 2:
+                                        feature = "recommended";
+                                        break;
+                                    case 3:
+                                        feature = "special edition";
+                                        break;
+                                    default:
+                                        System.out.println("[Error] Invalid feature selection.");
+                                        continue;
+                                }
+                                
+                                boolean featureAdded = slms.addFeatureToBook(featureBookId, feature);
+                                if (featureAdded) {
+                                    System.out.println("\n+============================================+");
+                                    System.out.println("|       Feature Added Successfully!          |");
+                                    System.out.println("+============================================+\n");
+                                }
+                                break;
+
+                            case 2: // Set Edition for Book
+                                System.out.println("\n+============================================+");
+                                System.out.println("|        Set Edition for Book                |");
                                 System.out.println("+============================================+\n");
 
                                 System.out.print(" Enter Book ID: ");
@@ -524,15 +578,15 @@ public class SLMS_Main {
                                 System.out.print(" Enter Edition (e.g., 1st Edition, 2nd Edition): ");
                                 String edition = scanner.nextLine();
 
-                                boolean editionAdded = slms.addEditionToBook(editionBookId, edition);
-                                if (editionAdded) {
+                                boolean editionSet = slms.setEditionForBook(editionBookId, edition);
+                                if (editionSet) {
                                     System.out.println("\n+============================================+");
-                                    System.out.println("|       Edition Added Successfully!          |");
+                                    System.out.println("|       Edition Set Successfully!            |");
                                     System.out.println("+============================================+\n");
                                 }
                                 break;
 
-                            case 2: // Add Tag to Book
+                            case 3: // Add Tag to Book
                                 System.out.println("\n+============================================+");
                                 System.out.println("|            Add Tag to Book                 |");
                                 System.out.println("+============================================+\n");
@@ -550,7 +604,7 @@ public class SLMS_Main {
                                 }
                                 break;
 
-                            case 3: // Add Review to Book
+                            case 4: // Add Review to Book
                                 System.out.println("\n+============================================+");
                                 System.out.println("|          Add Review to Book                |");
                                 System.out.println("+============================================+\n");
@@ -568,7 +622,7 @@ public class SLMS_Main {
                                 }
                                 break;
 
-                            case 4: // Back to Main Menu
+                            case 5: // Back to Main Menu
                                 System.out.println("Returning to Main Menu...");
                                 break;
 
