@@ -1,5 +1,6 @@
 package main;
 
+import user.admin.K2559495_Librarian;
 import book.builder.*;
 import book.state.*;
 import command.*;
@@ -14,6 +15,7 @@ public class Smart_Library_Management_System {
 
     private List<K2559495_BookContext> bookContexts = new ArrayList<>();
     private List<K2559495_User> users = new ArrayList<>();
+    private List<K2559495_Librarian> librarians = new ArrayList<>();
     private K2559495_NotificationService notificationService = new K2559495_NotificationService();
 
     // ==================== BOOK MANAGEMENT ====================
@@ -136,6 +138,26 @@ public class Smart_Library_Management_System {
     }
 
     // ==================== USER MANAGEMENT ====================
+    public void addLibrarian(String name, String email, String contactNumber, String password) {
+        String librarianId = "L" + String.format("%03d", librarians.size() + 1);
+        K2559495_Librarian librarian = new K2559495_Librarian(librarianId, name, email, contactNumber, password);
+        librarians.add(librarian);
+        System.out.println("[Librarian Added] Name : " + name );
+    }
+
+    public boolean loginLibrarian(String email, String password) {
+        for (K2559495_Librarian librarian : librarians) {
+            if (librarian.getEmail().equalsIgnoreCase(email) && librarian.getPassword().equals(password)) {
+                System.out.println("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+                System.out.println("[Login Successful] Welcome, " + librarian.getName());
+                System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+                return true; 
+            }
+        }
+        System.out.println("\n[Login Failed] Invalid email or password.\n");
+        return false;
+    }
+
     public K2559495_User addUser(String name, String email, String contact, String type) {
         try {
             String userId = "U" + String.format("%03d", users.size() + 1); // auto ID
@@ -218,7 +240,7 @@ public class Smart_Library_Management_System {
             }
 
             K2559495_Book book = context.getBook();
-            
+
             switch (featureType.toLowerCase()) {
                 case "featured":
                     book.setFeatured(true);
@@ -237,14 +259,14 @@ public class Smart_Library_Management_System {
                     System.out.println("[Error] Invalid feature type: " + featureType);
                     return false;
             }
-            
+
             return true;
         } catch (Exception e) {
             System.out.println("[Error] Failed to add feature: " + e.getMessage());
             return false;
         }
     }
-    
+
     public boolean removeFeatureFromBook(String bookId, String featureType) {
         try {
             K2559495_BookContext context = findBookContextById(bookId);
@@ -254,7 +276,7 @@ public class Smart_Library_Management_System {
             }
 
             K2559495_Book book = context.getBook();
-            
+
             switch (featureType.toLowerCase()) {
                 case "featured":
                     book.setFeatured(false);
@@ -273,14 +295,14 @@ public class Smart_Library_Management_System {
                     System.out.println("[Error] Invalid feature type: " + featureType);
                     return false;
             }
-            
+
             return true;
         } catch (Exception e) {
             System.out.println("[Error] Failed to remove feature: " + e.getMessage());
             return false;
         }
     }
-    
+
     public void viewBookById(String bookId) {
         try {
             K2559495_BookContext context = findBookContextById(bookId);
@@ -288,7 +310,7 @@ public class Smart_Library_Management_System {
                 System.out.println("[Error] Book ID not found: " + bookId);
                 return;
             }
-            
+
             context.getBook().displayBookInfo();
         } catch (Exception e) {
             System.out.println("[Error] Failed to view book: " + e.getMessage());

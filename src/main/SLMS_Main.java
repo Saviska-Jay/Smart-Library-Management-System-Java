@@ -6,17 +6,12 @@ import book.state.*;
 import user.abstraction.*;
 
 /**
- * Smart Library Management System - Main Application
- * K2559495 - Saviska Jayawickrama - 2025
- * 
- * This is the main entry point for the Smart Library Management System.
- * It provides a menu-driven interface for library operations.
+ * Smart Library Management System - Main Application K2559495 - Saviska
+ * Jayawickrama - 2025
  */
-
 public class SLMS_Main {
 
     // ==================== MENU DISPLAY METHODS ====================
-
     private static void printMainMenu() {
         String menu
                 = "\n"
@@ -136,16 +131,18 @@ public class SLMS_Main {
     }
 
     // ==================== MAIN METHOD ====================
-
     public static void main(String[] args) {
 
         // Initialize Smart Library Management System
         Smart_Library_Management_System slms = new Smart_Library_Management_System();
 
         // ==================== DEFAULT DATA INITIALIZATION ====================
-
         System.out.println("\n[System] Initializing Smart Library Management System...");
-        
+
+        // Add default librarians
+        slms.addLibrarian("Kamal Peerera", "kamal@slms.lk", "0771111111", "kamal123");
+        slms.addLibrarian("Nimal Herath", "nimal@slms.lk", "0772222222", "nimal123");
+
         // Add default users
         slms.addUser("John Doe", "john.doe@university.edu", "0771234567", "student");
         slms.addUser("Dr. Jane Smith", "jane.smith@university.edu", "0779876543", "faculty");
@@ -160,11 +157,21 @@ public class SLMS_Main {
         System.out.println("[System] Initialization complete!\n");
 
         // ==================== INTERACTIVE MENU SYSTEM ====================
-
         Scanner scanner = new Scanner(System.in);
+
+        boolean loggedIn = false;
+        while (!loggedIn) {
+            System.out.print("Enter librarian email: ");
+            String email = scanner.nextLine();
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine();
+            loggedIn = slms.loginLibrarian(email, password);
+        }
+
         int choice = 0;
 
         while (choice != 8) {
+
             printMainMenu();
             System.out.print("Enter your choice (1-8): ");
 
@@ -534,16 +541,16 @@ public class SLMS_Main {
 
                                 System.out.print(" Enter Book ID: ");
                                 String featureBookId = scanner.nextLine();
-                                
+
                                 System.out.println("\n Available Features:");
                                 System.out.println(" 1. Featured");
                                 System.out.println(" 2. Recommended");
                                 System.out.println(" 3. Special Edition");
                                 System.out.print("\n Select feature to add (1-3): ");
-                                
+
                                 int featureType = scanner.nextInt();
                                 scanner.nextLine();
-                                
+
                                 String feature = "";
                                 switch (featureType) {
                                     case 1:
@@ -559,7 +566,7 @@ public class SLMS_Main {
                                         System.out.println("[Error] Invalid feature selection.");
                                         continue;
                                 }
-                                
+
                                 boolean featureAdded = slms.addFeatureToBook(featureBookId, feature);
                                 if (featureAdded) {
                                     System.out.println("\n+============================================+");
