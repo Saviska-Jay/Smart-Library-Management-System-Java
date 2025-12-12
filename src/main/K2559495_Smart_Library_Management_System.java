@@ -1,17 +1,16 @@
 package main;
 
-import user.admin.K2559495_Librarian;
 import book.builder.*;
 import book.state.*;
 import command.*;
-import observer.*;
-import user.abstraction.*;
-import user.strategy.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import observer.*;
+import user.abstraction.*;
+import user.admin.K2559495_Librarian;
+import user.strategy.*;
 
-public class Smart_Library_Management_System {
+public class K2559495_Smart_Library_Management_System {
 
     private List<K2559495_BookContext> bookContexts = new ArrayList<>();
     private List<K2559495_User> users = new ArrayList<>();

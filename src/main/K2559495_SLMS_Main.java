@@ -1,15 +1,15 @@
 package main;
 
-import java.util.Scanner;
 import book.builder.*;
 import book.state.*;
+import java.util.Scanner;
 import user.abstraction.*;
 
 /**
  * Smart Library Management System - Main Application K2559495 - Saviska
  * Jayawickrama - 2025
  */
-public class SLMS_Main {
+public class K2559495_SLMS_Main {
 
     // ==================== MENU DISPLAY METHODS ====================
     private static void printMainMenu() {
@@ -134,7 +134,7 @@ public class SLMS_Main {
     public static void main(String[] args) {
 
         // Initialize Smart Library Management System
-        Smart_Library_Management_System slms = new Smart_Library_Management_System();
+        K2559495_Smart_Library_Management_System slms = new K2559495_Smart_Library_Management_System();
 
         // ==================== DEFAULT DATA INITIALIZATION ====================
         System.out.println("\n[System] Initializing Smart Library Management System...");
