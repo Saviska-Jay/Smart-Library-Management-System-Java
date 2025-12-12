@@ -81,8 +81,9 @@ public class K2559495_SLMS_Main {
                 + " |                                                                            | \n"
                 + " |                            View Information Menu                           | \n"
                 + " |                                                                            | \n"
-                + " |          1. View All Books               3. Back to Main Menu              | \n"
-                + " |          2. View All Users                                                 | \n"
+                + " |          1. View All Books               4. Most Borrowed Books Report     | \n"
+                + " |          2. View All Users               5. Overdue Books Report           | \n"
+                + " |          3. Active Borrowers Report      6. Back to Main Menu              | \n"
                 + " |                                                                            | \n"
                 + " +============================================================================+\n"
                 + " |                   K2559495 - Saviska Jayawickrama - 2025                   | \n"
@@ -412,15 +413,15 @@ public class K2559495_SLMS_Main {
                 // ==================== VIEW ALL BOOKS/USERS ====================
                 case 3:
                     int viewChoice = 0;
-                    while (viewChoice != 3) {
+                    while (viewChoice != 6) {
                         printViewMenu();
-                        System.out.print("Enter your choice (1-3): ");
+                        System.out.print("Enter your choice (1-6): ");
 
                         try {
                             viewChoice = scanner.nextInt();
                             scanner.nextLine();
                         } catch (Exception e) {
-                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 3.");
+                            System.out.println("[Error] Invalid input. Please enter a number between 1 and 6.");
                             scanner.nextLine();
                             continue;
                         }
@@ -462,7 +463,39 @@ public class K2559495_SLMS_Main {
                                 System.out.println("+============================================================================+\n");
                                 break;
 
-                            case 3: // Back to Main Menu
+                            case 3: // Active Borrowers Report
+                                System.out.println("\n+============================================+");
+                                System.out.println("|    Generate Active Borrowers Report        |");
+                                System.out.println("+============================================+\n");
+
+                                System.out.print(" Enter number of top borrowers to display: ");
+                                int topN = scanner.nextInt();
+                                scanner.nextLine();
+
+                                slms.generateActiveBorrowersReport(topN);
+                                break;
+
+                            case 4: // Most Borrowed Books Report
+                                System.out.println("\n+============================================+");
+                                System.out.println("|   Generate Most Borrowed Books Report     |");
+                                System.out.println("+============================================+\n");
+
+                                System.out.print(" Enter number of top books to display: ");
+                                int topBooks = scanner.nextInt();
+                                scanner.nextLine();
+
+                                slms.generateMostBorrowedBooksReport(topBooks);
+                                break;
+
+                            case 5: // Overdue Books Report
+                                System.out.println("\n+============================================+");
+                                System.out.println("|      Generate Overdue Books Report         |");
+                                System.out.println("+============================================+\n");
+
+                                slms.generateOverdueBooksReport();
+                                break;
+
+                            case 6: // Back to Main Menu
                                 System.out.println("Returning to Main Menu...");
                                 break;
 

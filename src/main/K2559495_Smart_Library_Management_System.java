@@ -1,6 +1,7 @@
 package main;
 
 import book.builder.*;
+import book.reports.*;
 import book.state.*;
 import command.*;
 import java.util.ArrayList;
@@ -393,6 +394,31 @@ public class K2559495_Smart_Library_Management_System {
             }
         }
         return null;
+    }
+
+    // ==================== REPORT GENERATION METHODS ====================
+    public void generateActiveBorrowersReport(int topN) {
+        try {
+            K2559495_ActiveBorrowersReport.generate(users, topN);
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to generate Active Borrowers Report: " + e.getMessage());
+        }
+    }
+
+    public void generateMostBorrowedBooksReport(int topN) {
+        try {
+            K2559495_MostBorrowedBooksReport.generate(bookContexts, topN);
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to generate Most Borrowed Books Report: " + e.getMessage());
+        }
+    }
+
+    public void generateOverdueBooksReport() {
+        try {
+            K2559495_OverdueBooksReport.generate(bookContexts);
+        } catch (Exception e) {
+            System.out.println("[Error] Failed to generate Overdue Books Report: " + e.getMessage());
+        }
     }
 
 }
